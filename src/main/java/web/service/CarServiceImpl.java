@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-@Service("carService")
+@Service
 public class CarServiceImpl implements CarService{
-
-    private Car car;
 
     public CarServiceImpl() {
     }
@@ -20,8 +18,4 @@ public class CarServiceImpl implements CarService{
         return list.size();
     }
 
-    @Autowired
-    public void setCar(Car car) {
-        this.car = car;
-    }
 }
