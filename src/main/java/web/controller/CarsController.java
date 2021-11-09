@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import web.model.Cars;
 import web.service.CarService;
 
 import java.util.ArrayList;
@@ -14,21 +15,11 @@ import java.util.List;
 public class CarsController {
 
     private CarService carService;
-
-    public List<Car> getCarsList() {
-        List<Car> carsList = new ArrayList<>();
-        carsList.add(new Car("Lada", 2001, 80));
-        carsList.add(new Car("Opel", 2020, 160));
-        carsList.add(new Car("BMV", 2011, 240));
-        carsList.add(new Car("AUDI", 2021, 250));
-        carsList.add(new Car("Skoda", 2016, 160));
-
-        return carsList;
-    }
+    private Cars cars;
 
     @GetMapping("/cars")
     public String getCars(@RequestParam(value = "count", required = false) Integer count, ModelMap model) {
-        List<Car> carsList = getCarsList();
+        List<Car> carsList = cars.getCarsList();
 
         if (carsList.size() != 0) {
             int num = carService.countCars(carsList);
@@ -46,5 +37,10 @@ public class CarsController {
     @Autowired
     public void setCar(CarService carService) {
         this.carService = carService;
+    }
+
+    @Autowired
+    public void setListCars(Cars cars) {
+        this.cars = cars;
     }
 }
